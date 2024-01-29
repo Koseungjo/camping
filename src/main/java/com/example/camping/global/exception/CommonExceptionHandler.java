@@ -1,5 +1,6 @@
-package com.example.camping.global.config;
+package com.example.camping.global.exception;
 
+import com.example.camping.global.config.ResponseDTO;
 import com.example.camping.global.enums.ResponseCodeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,10 +17,10 @@ import java.util.NoSuchElementException;
 public class CommonExceptionHandler {
 
     @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<ResponseDTO> handleNoSuchElementException(NoSuchElementException exception) {
+    public ResponseDTO handleNoSuchElementException(NoSuchElementException exception) {
         log.error(exception.getMessage());
-        Map<String, String> response = toErrorResponse(ResponseCodeEnum.BAD_REQUEST.getCode(), exception.getMessage(),ResponseCodeEnum.BAD_REQUEST.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseDTO.ok(response));
+        Map<String, String> response = toErrorResponse(ResponseCodeEnum.BAD_REQUEST.getCode(), exception.getMessage(), exception.getMessage());
+        return ResponseDTO.ok(response);
     }
 
     private Map<String,String> toErrorResponse(String code, String message, String exception){

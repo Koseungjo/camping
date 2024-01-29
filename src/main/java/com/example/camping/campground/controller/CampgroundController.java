@@ -46,7 +46,7 @@ public class CampgroundController {
     public ResponseDTO deleteCampground(
             @PathVariable Long id,
             @CurrentUserId Long userId
-    ) throws Exception {
+    ) {
         campgroundCUDService.deleteCampground(id, userId);
         return ResponseDTO.ok();
     }
