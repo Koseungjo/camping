@@ -38,10 +38,10 @@ public class Campground extends BaseTimeEntity {
                 .build();
     }
 
-    public void update(CampgroundUpdateRequest request) {
+    public Campground update(CampgroundUpdateRequest request) {
         this.name = request.getName();
         this.location = request.getDescription();
         this.description = request.getDescription();
-
+        return this;
     }
 }

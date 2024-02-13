@@ -1,6 +1,7 @@
 package com.example.camping.campground.service;
 
 import com.example.camping.campground.dto.CampgroundCreateRequest;
+import com.example.camping.campground.dto.CampgroundDetailResponse;
 import com.example.camping.campground.dto.CampgroundUpdateRequest;
 import com.example.camping.campground.entity.Campground;
 import com.example.camping.campground.repository.CampgroundRepository;
@@ -17,8 +18,8 @@ public class CampgroundCUDService {
 
     private final CampgroundRepository campgroundRepository;
 
-    public Campground campgroundCreate(CampgroundCreateRequest request, Long userId) {
-        return campgroundRepository.save(Campground.toEntity(request, userId));
+    public Long campgroundCreate(CampgroundCreateRequest request, Long userId) {
+        return campgroundRepository.save(Campground.toEntity(request, userId)).getId();
     }
 
     public void deleteCampground(Long id, Long userId) {
@@ -29,12 +30,10 @@ public class CampgroundCUDService {
         campgroundRepository.delete(campground);
     }
 
-    public Campground updateCampground(Long id, CampgroundUpdateRequest request, Long userId) {
+    public CampgroundDetailResponse updateCampground(Long id, CampgroundUpdateRequest request, Long userId) {
         Campground campground = campgroundRepository.findByIdAndUserId(id, userId).orElseThrow(
                 () -> new NoSuchElementException("존재하지 않는 캠핑장 입니다,")
         );
-
-        campground.update(request);
-        return campground;
+        return CampgroundDetailResponse.toDto(campground.update(request));
     }
 }
