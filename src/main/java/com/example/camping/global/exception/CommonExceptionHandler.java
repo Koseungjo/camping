@@ -23,6 +23,13 @@ public class CommonExceptionHandler {
         return ResponseDTO.ok(response);
     }
 
+    @ExceptionHandler(DuplicationEmailException.class)
+    public ResponseDTO handleNoSuchElementException(DuplicationEmailException exception) {
+        log.error(exception.getMessage());
+        Map<String, String> response = toErrorResponse(ResponseCodeEnum.BAD_REQUEST.getCode(), exception.getMessage(), exception.getMessage());
+        return ResponseDTO.ok(response);
+    }
+
     private Map<String,String> toErrorResponse(String code, String message, String exception){
         Map<String,String> response = new HashMap<>();
         response.put("code", code);

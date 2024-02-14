@@ -14,8 +14,8 @@ import java.util.List;
 @Component
 public class BatchScheduler {
 
-    private ReservationRepository reservationRepository;
-    private EmailProvider emailProvider;
+    private final ReservationRepository reservationRepository;
+    private final EmailProvider emailProvider;
 
     public BatchScheduler(ReservationRepository reservationRepository) {
         this.reservationRepository = reservationRepository;
